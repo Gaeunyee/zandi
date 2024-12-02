@@ -59,17 +59,19 @@ setPar()
 M = int(input().strip())
 for _ in range(M):
     a, b, c = map(int, input().split())
-    x, y, z = LCA(a, b), LCA(b, c), LCA(c, a)
+    x = LCA(a, b)
     if x % 2 == 0:
         mid = find(max(a, b, key=lambda k: depth[k]), x//2)
         if LCA(mid, c) == x//2:
             print(mid)
             continue
+    y = LCA(b, c)
     if y % 2 == 0:
         mid = find(max(b, c, key=lambda k: depth[k]), y//2)
         if LCA(mid, a) == y//2:
             print(mid)
             continue
+    z = LCA(c, a)
     if z % 2 == 0:
         mid = find(max(c, a, key=lambda k: depth[k]), z//2)
         if LCA(mid, b) == z//2:
