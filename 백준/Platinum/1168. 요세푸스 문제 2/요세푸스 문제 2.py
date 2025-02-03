@@ -49,7 +49,7 @@ def getSum(start):
                 start = startIndex + idx
     if idx != 1:
         return idx-1
-    return 1
+    return N
 
 
 s = K
