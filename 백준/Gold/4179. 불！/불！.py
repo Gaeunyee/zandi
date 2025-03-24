@@ -2,7 +2,7 @@ import sys
 from collections import deque
 input = sys.stdin.readline
 
-INF = 10 ** 6
+INF = 10 ** 7
 
 def solve():
     dxdy = [(1, 0), (-1, 0), (0, 1), (0, -1)]
@@ -22,23 +22,20 @@ def solve():
         graph.append(l)
 
     visited = [[0]*C for _ in range(R)]
-    f = 0
+    fire = [[INF]*C for _ in range(R)]
 
+    while F:
+        ft, fx, fy = F.popleft()
+        fire[fx][fy] = ft
+        for dx, dy in dxdy:
+            nx, ny = fx + dx, fy + dy
+            if 0 <= nx < R and 0 <= ny < C:
+                if graph[nx][ny] == '.' and fire[nx][ny] == INF:
+                    fire[nx][ny] = ft + 1
+                    F.append((ft+1, nx, ny))
     while J:
         t, x, y = J.popleft()
-        if f < t:
-            while F:
-                if F[0][0] > t:
-                    f = F[0][0]-1
-                    break
-                ft, fx, fy = F.popleft()
-                for dx, dy in dxdy:
-                    nx, ny = fx + dx, fy + dy
-                    if 0 <= nx < R and 0 <= ny < C:
-                        if graph[nx][ny] == '.':
-                            graph[nx][ny] = 'F'
-                            F.append((t+1, nx, ny))
-        if graph[x][y] != '.':
+        if fire[x][y] <= t:
             continue
         if x == 0 or x == R - 1 or y == 0 or y == C - 1:
             print(t + 1)
