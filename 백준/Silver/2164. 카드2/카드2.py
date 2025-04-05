@@ -7,7 +7,7 @@ def solve():
     qu = deque(i for i in range(1, n+1))
     while len(qu) > 1:
         qu.popleft()
-        qu.append(qu.popleft())
+        qu.rotate(-1)
     print(qu[0])
 
 
