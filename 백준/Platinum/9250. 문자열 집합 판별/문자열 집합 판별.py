@@ -1,6 +1,7 @@
 import sys
 from collections import deque
 input = sys.stdin.readline
+size = 97  # 97
 
 
 class Trie:
@@ -9,8 +10,9 @@ class Trie:
 
     def insert(self, string):
         tmp = self.top
-        for key in string:
-            if key not in tmp.next:
+        for k in string:
+            key = ord(k)-size
+            if not tmp.next[key]:
                 tmp.next[key] = Node(key)
             tmp.next[key].parent = tmp
             tmp = tmp.next[key]
@@ -18,15 +20,16 @@ class Trie:
 
     def trav(self, string):
         tmp = self.top
-        for key in string:
-            if key in tmp.next:
+        for k in string:
+            key = ord(k)-size
+            if tmp.next[key]:
                 tmp = tmp.next[key]
             else:
-                while key not in tmp.next:
+                while not tmp.next[key]:
                     if tmp == self.top:
                         break
                     tmp = tmp.fail
-                if key in tmp.next:
+                if tmp.next[key]:
                     tmp = tmp.next[key]
             if tmp.eos:
                 return True
@@ -38,17 +41,19 @@ class Trie:
         self.top.fail = self.top
         while qu:
             tmp = qu.popleft()
-            for nxt in tmp.next.values():
+            for nxt in tmp.next:
+                if not nxt:
+                    continue
                 tr = tmp.fail
                 if tmp == self.top:
                     nxt.fail = self.top
                     qu.append(nxt)
                     continue
-                while nxt.key not in tr.next:
+                while not tr.next[nxt.key]:
                     if tr == self.top:
                         break
                     tr = tr.fail
-                if nxt.key in tr.next:
+                if tr.next[nxt.key]:
                     nxt.fail = tr.next[nxt.key]
                 else:
                     nxt.fail = tr
@@ -58,10 +63,10 @@ class Trie:
 
 
 class Node:
-    def __init__(self, key=''):
+    def __init__(self, key=27):
         self.key = key
         self.eos = False
-        self.next = {}
+        self.next = [0]*26
         self.fail = None
         self.parent = None
 
