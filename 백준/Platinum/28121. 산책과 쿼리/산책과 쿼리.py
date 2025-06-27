@@ -33,7 +33,7 @@ def union(a, b):
             if isBip[x]:
                 res += par[x]
             isBip[x] = 0
-            
+
         return False
 
 
