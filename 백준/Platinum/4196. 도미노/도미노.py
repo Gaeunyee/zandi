@@ -1,6 +1,6 @@
 import sys
 input = sys.stdin.readline
-sys.setrecursionlimit(10**6)
+sys.setrecursionlimit(10**5 + 3)
 def SCC(u, low):
     global time, SCCs
     low[u] = time
