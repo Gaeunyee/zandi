@@ -15,11 +15,11 @@ if d != 0:
     t = d//4 if d%4 == 0 else 10**10
     s.append(0)
 
-    for i in range(N):
-        if s[i]%t == 0:
+    for i in range(N-1):
+        if s[i]%t == 0 and 4 > s[i]//t >= 1:
             dp[s[i]//t] += dp[s[i]//t-1]
 
-    print(dp[4])
+    print(dp[3])
 else:
     cnt = 0
     for i in range(N-1):
