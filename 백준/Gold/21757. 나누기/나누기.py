@@ -12,7 +12,7 @@ for i in range(1, N):
 
 d = s[-1]
 if d != 0:
-    t = d//4
+    t = d//4 if d%4 == 0 else 10**10
     s.append(0)
 
     for i in range(N):
